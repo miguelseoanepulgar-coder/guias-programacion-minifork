@@ -18,9 +18,9 @@ Por favor, escribe en impersonal las respuestas.
 ## 1. ¿Cuáles son las cuatro características básicas de la programación orientada a objetos? Describe brevemente cada una
 
 ### Respuesta: Encapsulamiento: Ocultación o privación de ciertos datos a través de métodos controlados
-###            Abstracción: Ignoracia de métodos de implementación para centrarse en lo esencial
-###            Herencia: Reutilizaciíon de clases para crear otras nuevas
-###            Polimorfismo: Flexibilidad del método ante diferentes tipos de objeto
+###            Abstracción: Ignoracia de métodos de implementación y centrarse en lo complejo y esencial para facilitar el cambio
+###            Herencia: Reutilizaciíon de clases para crear otras nuevas y establecer jerarquias
+###            Polimorfismo: Flexibilidad del método ante diferentes tipos de objeto para poder implementarse de forma diferente
 
 
 ## 2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
@@ -31,24 +31,26 @@ Por favor, escribe en impersonal las respuestas.
 ## 3. Los paradigmas anteriores a la POO, ¿Qué es la **programación estructurada**? y, todavía mejor, ¿Qué es la **programación modular**?
 
 ### Respuesta: La programacion estructurada es un tipo de programación que se centra en crear su código
-###            solo con estructuras de secuencia, selección y repetición, y la programación modular se centra
+###            solo con estructuras de secuencia, selección y repetición(sin goto), y la programación modular se centra
 ###            en separar el código que realiza funciónes distintas en módulos independientes.
 
 ## 4. ¿Qué tres elementos definen a un objeto en programación orientada a objetos?
 
-### Respuesta: estado, comportamiento e identidad.
+### Respuesta: estado(valor de los atributos), comportamiento(métodos que todo objeto de la clase puede realizar) e identidad(direccion de memoria).
 
 ## 5. ¿Qué es una clase? ¿Es lo mismo que un objeto? ¿Qué es una instancia? ¿Todos los lenguajes orientados a objetos manejan el concepto de clase?
 
 ### Respuesta: Una clase es como un plano que define como serán los objetos dentro de ella. Una clase no es lo mismo que un objeto,
-###            es la estrucura que los va a definir, creando así una instancia.No, lenguajes como javascript no usan clases para
+###            es la estrucura que los va a definir, creando así una instancia con un estado concreto. No, lenguajes como javascript no usan clases para
 ###            definir objetos.
 
 
 ## 6. ¿Dónde se almacenan en memoria los objetos? ¿Es igual en todos los lenguajes? ¿Qué es la **recolección de basura**? 
 
 ### Respuesta: La memoria de objetos se suele almacenar en el "heap"(memoria dinámica), pero en algunos
-###            lenguajes como c++, se puede llegar a almacenar en la pila o como variable global.
+###            lenguajes como c++, se puede llegar a almacenar en el stack, la ventaja de almacenarla en el heap es que el tamaño se decide en ejecución(dinámico), 
+###            y que lo que está en el heap que el método o función donde se a creado, la desventaja es que la info tiene que ser liberada cuando no se necesita,
+###            se puede hacer de forma manual o automática   (recolector de basura).
 ###            La recolleción de basura, consiste en liberar la memoria autamaticamente de los objetos
 ###            que no tienen uso.
 
@@ -91,7 +93,8 @@ public class Main {
 ## 9. ¿Cuál es el punto de entrada en un programa en Java? ¿Qué es `static` y para qué vale? ¿Sólo se emplea para ese método `main`? ¿Para qué se combina con `final`?
 
 ### Respuesta: El punto de entrada a un programa de java siempre es el main,La palabra reservada static indica que un miembro pertenece a la clase 
-###            y no a una instancia concreta,se puede usar en mas sitios a parte del main y se fuede fusionar con "final" para definir constantes.
+###            y no a una instancia concreta,se puede usar en mas sitios a parte del main, no se necesita oun objeto para usarla y se fuede fusionar con "final" para definir constantes.
+###            No se puede usar desde un método static nada que no sea static.
 
 ## 10. Intenta ejecutar un poco de Java de forma básica, con los comandos `javac` y `java`. ¿Cómo podemos compilar el programa y ejecutarlo desde linea de comandos? ¿Java es compilado? ¿Qué es la **máquina virtual**? ¿Qué es el *byte-code* y los ficheros `.class`?
 
