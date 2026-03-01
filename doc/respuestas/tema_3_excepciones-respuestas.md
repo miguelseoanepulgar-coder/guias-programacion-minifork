@@ -200,35 +200,137 @@ public class EjemploFinallySinCatch {
 
 ## 11. En Java, qué son las excepciones **"controladas"** y las **"no controladas"**? ¿Qué papel juega `RuntimeException`? Pon un ejemplo de excepciones típicas controladas y no controladas que incluso nosotros mismos podríamos usar. Haz dos listas con 3 o 4 ejemplos de situación donde se suele preferir una excepción controlada y donde se suele preferir una excepción no controlada.
 
-### Respuesta
+### En Java, las excepciones controladas (checked exceptions) son aquellas que el compilador obliga a declarar o capturar, porque representan situaciones excepcionales pero esperables y recuperables, como fallos de E/S o problemas al acceder a un recurso externo, en las no controlados no se obliga.Controladas:IOException, SQLException, FileNotFoundException. No controladas: NullPointerException, IllegalArgumentException, IndexOutOfBoundsException. Se prefieren controladas cuando: un método E/S falla por causas externas,se accede a recursos externos (BD, red) y se quiere obligar al código cliente a manejar errores o cuando el programa trabaja con datos que pueden no existir. Se prefieren no controladas cuando: una precondición se incumple,  se detecta un error lógico del programador,o cuando forzar try/catch empeoraría la claridad del código y no aporta manejo útil.
+
 
 
 ## 12. ¿Qué es y para qué se usa `throws`? ¿Por qué es alternativa a capturar una excepción controlada?
 
-### Respuesta
+### throws es parte de la firma de un método y declara que dicho método puede lanzar una o varias excepciones (normalmente controladas). Su efecto práctico es propagar la responsabilidad de manejar esas excepciones al código llamador: el compilador exigirá que quien llame al método capture la excepción o vuelva a declararla en su propio throws.Es alternativa a capturar una excepción controlada porque, en lugar de escribir un try/catch local (que a veces solo envolvería y re-lanzaría sin aportar valor), se hace explícito en la API que “esta operación puede fallar por X motivo” y se obliga al consumidor a decidir qué hacer.
 
 
 ## 13. Pon un ejemplo en Java de firma de método que incluya `throws`, de una función que abre un fichero pero que declara que no le interesa menejar la excepción de si el fichero no existe, sino que se propague hacia arriba. Eso sí, acuérdate del `finally`.
 
-### Respuesta
+### 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class LectorArchivos {
+
+    // La firma declara que se propaga la excepción (no se maneja aquí).
+    public static String leerPrimeraLinea(String ruta) throws IOException {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(ruta)); // puede lanzar FileNotFoundException
+            return br.readLine(); // puede lanzar IOException
+        } finally {
+            // Se garantiza el cierre del recurso incluso si hubo excepción.
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException cierreErroneo) {
+                    // Opcional: registrar el error de cierre; no se vuelve a lanzar para no ocultar la causa original.
+                }
+            }
+        }
+    }
+
+    // Ejemplo de uso: quien llama decide manejar la excepción o volver a declararla.
+    public static void main(String[] args) {
+        try {
+            String primera = leerPrimeraLinea("datos.txt");
+            System.out.println(primera);
+        } catch (IOException e) {
+            // Manejo con contexto (log, mensaje al usuario, fallback, etc.)
+            System.err.println("No fue posible leer el archivo: " + e.getMessage());
+        }
+    }
+}
+
 
 
 ## 14. ¿Podemos poner en `throws` excepciones no controladas, como `RuntimeException`? ¿Debería el método llamador entonces poner `try-catch` en ese caso? ¿Qué sentido tendría?
 
-### Respuesta
+### Sí, se pueden poner excepciones no controladas (subclases de RuntimeException) en la cláusula throws, pero no es necesario: el compilador no exige declararlas ni capturarlas. El método llamador no está obligado a poner try-catch para una RuntimeException. Solo debería capturarla si puede recuperarse de forma significativa (por ejemplo, convertir una IllegalArgumentException en una respuesta HTTP 400, registrar y continuar, o traducirla a una excepción de dominio). Tiene sentido listar RuntimeException en throws cuando se desea dejar constancia explícita de una posible condición (p. ej., “puede lanzar NumberFormatException si el formato es inválido”) o cuando una API pública quiere distinguir entre fallos de entorno (checked) y violaciones de contrato (unchecked). 
 
 
 ## 15. ¿Cuándo se recomienda usar excepciones controladas, como `IOException`, y cuándo no controladas como `IllegalArgumentException`? ¿Existen en todos los lenguajes ambas opciones? En los que sólo existe una opción, ¿cuál es la más habitual?
 
-### Respuesta
+### El uso de excepciones controladas se recomienda cuando la situación de error forma parte del flujo normal y esperable del programa, especialmente cuando depende de factores externos que el código no controla directamente.Por el contrario, las excepciones no controladas como IllegalArgumentException o NullPointerException se utilizan cuando el fallo representa un error de programación, una precondición violada o un estado inconsistente del objeto. No tiene sentido obligar a capturarlas, porque no hay una forma "correcta" de recuperarse en tiempo de ejecución: lo adecuado es corregir el código que provocó el error. Por eso estas excepciones derivan de RuntimeException y no requieren throws.No todos los lenguajes distinguen entre controladas y no controladas. Algunos, como Python, JavaScript, C# o C++, solo tienen excepciones no controladas,Cuando solo existe una opción, la aproximación más común es la del modelo de RuntimeException: lanzar para indicar errores y capturar únicamente cuando el programa pueda recuperarse o aportar un tratamiento útil del problema.
 
 
 ## 16. ¿Tiene sentido lanzar excepciones dentro del `catch`? ¿Se puede relanzar la misma excepción capturada? ¿Cuándo tendría sentido hacer esto último? Pon ejemplos de ambos casos.
 
-### Respuesta
+### Sí, tiene sentido lanzar una excepción dentro de un catch cuando se desea traducir la excepción a una de dominio (más significativa para el llamador), añadir contexto (mensaje, metadatos) o normalizar el tipo que atraviesa capas.También se puede relanzar la misma excepción capturada. Tiene sentido cuando el bloque catch realiza labores colaterales (por ejemplo, registrar información adicional o liberar recursos no gestionados por try-with-resources) pero no puede recuperarse.
+
+
+class DatoNoDisponibleException extends Exception {
+    public DatoNoDisponibleException(String msg, Throwable cause) { super(msg, cause); }
+}
+
+public String cargarConfig(String ruta) throws DatoNoDisponibleException {
+    try {
+        return java.nio.file.Files.readString(java.nio.file.Path.of(ruta));
+    } catch (java.io.IOException e) {
+        // Se añade contexto de dominio y se conserva la causa original
+        throw new DatoNoDisponibleException("No se pudo leer la configuración: " + ruta, e);
+    }
+}
+
+
+public void procesar() {
+    try {
+        operar();
+    } catch (IllegalArgumentException e) {
+        // Trabajo colateral (log/telemetría) y relanzar para que falle arriba
+        System.err.println("Parámetros inválidos en procesar(): " + e.getMessage());
+        throw e; // Se preserva el stack trace original
+    }
+}
+
+private void operar() {
+    // Violación de precondición → unchecked
+    throw new IllegalArgumentException("id debe ser positivo");
+}
+
 
 
 ## 17. ¿En qué consiste que una excepción sea la **"causa"** de otra excepción? Pon un ejemplo en Java, donde capturemos una excepción de bajo nivel y la encapsulemos en otra personalizada de alto nivel. Cuando una excepción sale por pantalla y tiene una causa, ¿se ve?
 
-### Respuesta
+### Una excepción es la causa de otra cuando la segunda se crea encadenando la primera para conservar el origen real del fallo.
+
+
+// Excepción de alto nivel (de dominio)
+class DatoNoDisponibleException extends Exception {
+    public DatoNoDisponibleException(String mensaje, Throwable causa) {
+        super(mensaje, causa); // encadena la causa
+    }
+}
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+public class RepositorioConfig {
+    // Capa de repositorio: traduce IOException a una excepción de dominio
+    public String cargarConfig(String ruta) throws DatoNoDisponibleException {
+        try {
+            return Files.readString(Path.of(ruta)); // puede lanzar IOException
+        } catch (IOException e) {
+            // Se añade contexto y se conserva el origen como causa
+            throw new DatoNoDisponibleException("No se pudo cargar la configuración: " + ruta, e);
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            new RepositorioConfig().cargarConfig("config/app.properties");
+        } catch (DatoNoDisponibleException e) {
+            // Al imprimir, se verá el "Caused by: java.io.IOException: ..."
+            e.printStackTrace();
+        }
+    }
+}
+
 
