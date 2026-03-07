@@ -16,7 +16,7 @@ Por favor, escribe en impersonal las respuestas.
 
 ## 1. En Programación Orientada a Objetos (POO), ¿Qué buscan la **encapsulación** y **la ocultación** de información? Enumera brevemente algunas ventajas de la ocultación de información.
 
-### La encapsulación en POO busca agrupar dentro de una misma clase tanto los datos como los métodos que operan sobre ellos, formando una unidad coherente,la ocultación consiste en restringir el acceso a esa clase mediane modificadores como "private", esto provoca que el código sea mas claro, mas facil de mantener, y mas consistente.
+### La encapsulación en POO busca agrupar dentro de una misma clase tanto los datos como los métodos que operan sobre ellos, formando una unidad coherente,la ocultación consiste en restringir el acceso a esa clase mediane modificadores como "private", esto provoca que el código sea mas claro, mas facil de mantener, y mas consistente, para evitar dependencias y estados no válidos.
 
 
 ## 2. ¿Qué se entiende por la **interfaz pública** de un objeto o clase en POO? Describe brevemente cómo se relaciona con la ocultación de información.
@@ -64,7 +64,7 @@ ic class Punto {
 
 ## 7. En POO, la visibilidad puede ser pública o privada, pero ¿existen más tipos de visibilidad? ¿Qué ocurre en Java? ¿Y en otros lenguajes?
 
-### En POO existen más niveles de visibilidad además de la pública y la privada, aunque los disponibles dependen del lenguaje, en Java, existen dos niveles adicionales: "protected" y "package‑private". protected permite el acceso desde la propia clase, desde su paquete y desde sus subclases, incluso si estas están en otro paquete. El acceso package‑private, en cambio, se limita únicamente a las clases del mismo paquete.
+### En POO existen más niveles de visibilidad además de la pública y la privada, aunque los disponibles dependen del lenguaje, en Java, existen dos niveles adicionales: "protected" y "package‑private". protected permite el acceso desde la propia clase, desde su paquete y desde sus subclases, incluso si estas están en otro paquete. El acceso package‑private, que es el que está sin modificador, en cambio, se limita únicamente a las clases del mismo paquete.
 
 
 ## 8. Responde: Los miembros de instancia privados de un objeto están ocultos para (a) otras clases o (b) otras instancias, aunque sean de la misma clase. Pon un ejemplo añadiendo un método `calcularDistanciaAPunto(Punto otro)` y explica la respuesta.
@@ -100,7 +100,7 @@ public class Punto {
 
 ## 10. Cuando nos referimos a que la ocultación de información mejora la "seguridad" del programa, ¿nos referimos a que no pueda ser "hackeado"?
 
-### No, se refiere a que el los objetos solo se pueden modificar por métodos públicos y no privados y así evitar el riesgo de errores inesperados.
+### No, se refiere a que el los objetos solo se pueden modificar por métodos públicos y no privados y así evitar el riesgo de bugs.
 
 
 ## 11. ¿Qué diferencia hay entre **miembro de instancia** y **miembro de clase**? ¿Los miembros de clase también se pueden ocultar?
@@ -110,12 +110,12 @@ public class Punto {
 
 ## 12. Brevemente: ¿Tiene sentido que los constructores sean privados?
 
-### Sí, tiene sentido que los constructores sean privados en ciertos diseños concretos, aunque no sea lo habitual en la mayoría de las clases. Un constructor privado impide crear objetos desde fuera de la propia clase, lo que puede ser útil cuando se quiere controlar estrictamente cómo y cuándo se generan las instancias.
+### Sí, tiene sentido que los constructores sean privados en ciertos diseños concretos, aunque no sea lo habitual en la mayoría de las clases. Un constructor privado impide crear objetos desde fuera de la propia clase, lo que puede ser útil cuando se quiere controlar estrictamente cómo y cuándo se generan las instancias, puede ser util por ejemplo en métodos factorios.
 
 
 ## 13. ¿Cómo se indican los **miembros de clase** en Java? Pon un ejemplo, en la clase `Punto` definida anteriormente, para que incluya miembros de clase que permitan saber cuáles son los valores `x` e `y` máximos que se han establecido en todos los puntos que se hayan creado hasta el momento.
 
-### Respuesta
+### Static
 
 
 ## 14. Como sería un método factoría dentro de la clase `Punto` para construir un `Punto` a partir de dos coordenadas, pero que las redondee al entero más cercano. Escribe sólo el código del método, no toda la clase ¿Has usado `static`? 
@@ -264,7 +264,7 @@ public class Punto {
 
 ## 21. ¿Qué son las clases "wrapper" en un lenguaje de programación orientado a objetos? ¿Cómo se hace? ¿Es un proceso automático? ¿Qué ventajas tienen? ¿Todos los lenguajes orientados a objetos tienen tipos primitivos y necesitan wrappers? 
 
-### Las clases wrapper son clases que encapsulan un valor de un tipo primitivo dentro de un objeto.La conversión entre un tipo primitivo y su wrapper puede realizarse explícitamente creando un objeto, pero en Java la mayor parte de ese proceso se realiza de manera automática, mediante autoboxing y unboxing. Las clases wrapper ofrecen varias ventajas. Permiten utilizar valores primitivos en APIs que requieren objetos, como las colecciones genéricas (ArrayList<Integer>), y proporcionan métodos útiles para convertir, comparar o formatear esos valores. Además, facilitan trabajar en entornos donde se necesite representar la ausencia de valor (por ejemplo, null), cosa que los tipos primitivos no admiten. También resultan útiles para operaciones genéricas, donde se necesita un tipo parametrizable que represente números o booleanos sin importar su detalle concreto. 
+### Las clases wrapper son clases que encapsulan un valor de un tipo primitivo dentro de un objeto.La conversión entre un tipo primitivo y su wrapper puede realizarse explícitamente creando un objeto, pero en Java la mayor parte de ese proceso se realiza de manera automática, mediante autoboxing y unboxing. Las clases wrapper ofrecen varias ventajas. Permiten utilizar valores primitivos en APIs que requieren objetos, como las colecciones genéricas (ArrayList<Integer>), permiten añadir comportamiento, autoboxing/unboxing y proporcionan métodos útiles para convertir, comparar o formatear esos valores. Además, facilitan trabajar en entornos donde se necesite representar la ausencia de valor (por ejemplo, null), cosa que los tipos primitivos no admiten. También resultan útiles para operaciones genéricas, donde se necesita un tipo parametrizable que represente números o booleanos sin importar su detalle concreto. 
 
 
 ## 22. ¿En POO qué es un **tipo de dato enumerado**? ¿En Java, un tipo de dato enumerado es una clase? ¿Qué ventajas tienen en términos de encapsulación los enumerados en Java?
