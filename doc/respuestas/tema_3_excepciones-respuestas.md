@@ -70,7 +70,7 @@ int main(void) {
 
 ## 2. Brevemente ¿Qué es una **"excepción"**? ¿Con qué objetivo las usa un programador cuando implementa funciones o cuando las llama?
 
-### Una excepción es un mecanismo mediante el cual un lenguaje de programación señala que se ha producido una situación anómala durante la ejecución normal de un programa. En lugar de continuar con el flujo normal, se para el programa y se señala el posible error.Para quien llama a funciones, el uso de excepciones permite concentrar el manejo de errores en bloques específicos (try–catch en Java), lo que mejora la legibilidad y evita olvidar verificar valores de retorno. 
+### Una excepción es un mecanismo mediante el cual un lenguaje de programación señala que se ha producido una situación anómala durante la ejecución normal de un programa. En lugar de continuar con el flujo normal, se para el programa y se señala el posible error.Para quien llama a funciones, el uso de excepciones permite concentrar el manejo de errores en bloques específicos (try–catch en Java), lo que mejora la legibilidad y permite indicar el error cuando llamamos. 
 
 
 ## 3. Reescribe el mismo ejemplo de raiz, pero en Java, metiendo ese método en una clase `Calculadora` y llama a dicho método desde el método `main`, mostrando cómo se puede controlar desde fuera.
@@ -126,12 +126,12 @@ public class Calculadora {
 
 ## 7. En relación con las ventajas de la encapsulación, comparando el ejemplo en C con Java. ¿Qué **información esencial** lleva cualquier **objeto excepción** que es muy útil tener cuando se llega a un manejador?
 
-### Una excepción en Java encapsula información esencial sobre el error, algo que en C no está disponible de forma automática. El dato más importante que lleva consigo cualquier objeto excepción es el stack trace: la traza completa de métodos que estaban en ejecución en el momento de producirse el fallo. Esta traza permite saber exactamente dónde ocurrió el error y qué camino siguió el programa hasta llegar allí.
+### Una excepción en Java encapsula información esencial sobre el error, algo que en C no está disponible de forma automática. El dato más importante que lleva consigo cualquier objeto excepción es el stack trace: la traza completa de métodos que estaban en ejecución en el momento de producirse el fallo. Esta traza permite saber exactamente dónde ocurrió el error y qué camino siguió el programa hasta llegar allí, tambien puede llevar un mensaje personalizable, y ocasionalmente la causa de la excepción.
 
 
 ## 8. En Java, sobre el bloque **"try-catch"**, ¿se pueden tener más de un bloque `catch`? ¿cuántos bloques `catch` se ejecutan?
 
-### Sí, en Java es posible tener más de un bloque catch asociado a un mismo try. Cada bloque catch especifica un tipo distinto de excepción a manejar, lo que permite reaccionar de forma diferente según el error concreto que se haya producido.Cuando ocurre una excepción dentro del try, solo se ejecuta un único catch: concretamente, el primer catch cuyo tipo sea compatible con el tipo de la excepción lanzada.
+### Sí, en Java es posible tener más de un bloque catch asociado a un mismo try. Cada bloque catch especifica un tipo distinto de excepción a manejar, lo que permite reaccionar de forma diferente según el error concreto que se haya producido.Cuando ocurre una excepción dentro del try, solo se ejecuta un único catch: concretamente, el primer catch cuyo tipo sea compatible con el tipo de la excepción lanzada, los catch se suelen colocar de más especiífico a más general.
 
 
 ## 9. Si las excepciones producen rupturas en el código llamador, ¿cómo podemos garantizar que se ejecuta siempre finalmente un código necesario para cierre de ficheros, liberacion de recursos, antes de que continúe propagándose la excepción? Pon un ejemplo en Java con `finally`, tanto con `catch` como sin él.
