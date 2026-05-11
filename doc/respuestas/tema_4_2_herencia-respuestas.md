@@ -169,7 +169,7 @@ class Zapador extends Soldado {
 
 ## 8. ¿Qué es la **"herencia múltiple"**? ¿Existe en Java herencia múltiple?
 
-### La herencia múltiple es un mecanismo de la orientación a objetos por el cual una clase puede heredar directamente de más de una clase base. Esto implica que la clase derivada adquiere el estado y el comportamiento de todas sus superclases.No.
+### La herencia múltiple es un mecanismo de la orientación a objetos por el cual una clase puede heredar directamente de más de una clase base. Esto implica que la clase derivada adquiere el estado y el comportamiento de todas sus superclases.No esta soportada en java.
 
 
 ## 9. Las excepciones en los lenguajes orientados a objetos son objetos. Por tanto, se pueden crear excepciones personalizadas. Pon un ejemplo en Java de una excepción personalizada (`UsuarioNoEncontradoException`), que sea *no controlada* y que además este compuesto con un `Usuario`, para saber qué `Usuario` dio el problema. Permite además que se pueda incluir la causa, es decir, sobrecarga el constructor para tener una versión que permita añadir la causa subyacente. 

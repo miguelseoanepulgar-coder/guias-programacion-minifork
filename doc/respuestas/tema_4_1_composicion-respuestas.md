@@ -122,7 +122,7 @@ public final class Linea {
 
 ## 3. ¿Qué significa la **multiplicidad** en la composición? En el ejemplo anterior, ¿cuál es la multiplicidad entre `Linea` y `Punto`? Indícalo expresando la multiplicidad en ambas direcciones, de `Linea` a `Punto` y de `Punto` a `Linea`.
 
-### La multiplicidad en composición describe cuántas instancias de una clase están vinculadas como parte esencial de otra lo que ayuda a entender la estructura del objeto compuesto. La multiplicidad desde linea a punto es 2, ya que se necesian 2 ptos para formar una linea, y al reves es 0, porque no es necesaria una linea para formar un pto.
+### La multiplicidad en composición describe cuántas instancias de una clase están vinculadas como parte esencial de otra lo que ayuda a entender la estructura del objeto compuesto. La multiplicidad desde linea a punto es 2, ya que se necesian 2 ptos para formar una linea, y al reves es 0..x, porque no es necesaria una linea para formar un pto, pero un pto puede estar en varias lineas.
 
 
 ## 4. ¿Qué significa composición **fuerte** y composición **débil**? ¿Qué consecuencia implica en relación al ciclo de vida de los objetos? Indica a cuál solemos referirnos como **"asociación o agregación"** y a cuál como **"composición"** propiamente.
